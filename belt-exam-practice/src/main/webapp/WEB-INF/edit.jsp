@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add new team</title>
+    <title>Edit team</title>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,9 +16,11 @@
 <h1>New Team</h1>
 
 <a href="/dashboard">dashboard</a>
-<form:form method="post" action="/teams/add" modelAttribute="team">
+
+<form:form method="post" action="/team/modify/${id}" modelAttribute="team">
+    <input type="hidden" name="_method" value="put">
     <form:label path="name" class="name">Name:</form:label>
-    <form:input path="name" class="name" />
+    <form:input path="name" class="name"/>
     <form:errors path="name" class="text-danger" />
     <form:label path="skillLevel" class="skilLevel">SkillLevel:</form:label>
     <form:input path="skillLevel" class="name" />
@@ -26,7 +28,7 @@
     <form:label path="gameDay" class="name">gameDay:</form:label>
     <form:input path="gameDay" class="name" />
     <form:errors path="gameDay" class="text-danger" />
-    <button>Submit</button>
+    <button>Edit</button>
 </form:form>
 </body>
 </html>

@@ -25,18 +25,16 @@ public class Team {
     @Max(5)
     private int skillLevel;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private GameDay gameDay;
 
-    
 
-    @NotBlank
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User createdBy;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "team_player",
         joinColumns = @JoinColumn(name = "team_id"),

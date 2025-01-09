@@ -22,4 +22,12 @@ public class TeamService {
     public Team saveNewTeam(Team team) {
         return teamRepository.save(team);
     }
+
+    public Team findById(Long id) {
+        return teamRepository.findById(id).orElse(null);
+    }
+
+    public void deleteById(Long id) {
+        teamRepository.deleteById(id);
+    }
 }

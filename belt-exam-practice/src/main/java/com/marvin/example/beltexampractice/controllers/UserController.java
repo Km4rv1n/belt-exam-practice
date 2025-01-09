@@ -38,7 +38,7 @@ public class UserController {
         }
 
         session.setAttribute("userId", newUser.getId());
-        return "redirect:/home";
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/login")
@@ -51,7 +51,7 @@ public class UserController {
         }
 
         session.setAttribute("userId", user.getId());
-        return "redirect:/home";
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/logout")
@@ -59,6 +59,5 @@ public class UserController {
         session.removeAttribute("userId");
         return "redirect:/";
     }
-
 
 }
