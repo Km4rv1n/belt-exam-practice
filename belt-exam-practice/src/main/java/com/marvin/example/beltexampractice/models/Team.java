@@ -34,7 +34,7 @@ public class Team {
     @JoinColumn(name = "user_id")
     private User createdBy;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
         name = "team_player",
         joinColumns = @JoinColumn(name = "team_id"),

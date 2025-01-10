@@ -4,6 +4,7 @@ import com.marvin.example.beltexampractice.models.Player;
 import com.marvin.example.beltexampractice.models.Team;
 import com.marvin.example.beltexampractice.models.User;
 import com.marvin.example.beltexampractice.repositories.TeamRepository;
+import com.marvin.example.beltexampractice.services.PlayerService;
 import com.marvin.example.beltexampractice.services.TeamService;
 import com.marvin.example.beltexampractice.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -20,10 +21,12 @@ public class TeamController {
 
     private final UserService userService;
     private final TeamService teamService;
+    private final PlayerService playerService;
 
-    public TeamController(UserService userService, TeamService teamService) {
+    public TeamController(UserService userService, TeamService teamService, PlayerService playerService) {
         this.userService = userService;
         this.teamService = teamService;
+        this.playerService = playerService;
     }
 
     @GetMapping ("/teams/new")
@@ -108,15 +111,24 @@ public class TeamController {
 
     @PutMapping("/teams/add-player/{id}")
     public String addPlayer(@PathVariable Long id, @ModelAttribute @Valid Player player, BindingResult bindingResult, HttpSession session) {
-        if (session.getAttribute ("userId" ) == null) {
+        if (session.getAttribute("userId") == null) {
             return "index";
         }
         if (bindingResult.hasErrors()) {
             return "details";
         }
+
+        Player existingPlayer = playerService.save(player);
         Team existingTeam = teamService.findById(id);
-        existingTeam.getPlayers().add(player);
+
+        if (existingTeam == null) {
+            bindingResult.rejectValue("id", "error.team", "Team not found");
+            return "details";
+        }
+
+        existingTeam.getPlayers().add(existingPlayer);
         teamService.saveNewTeam(existingTeam);
+
         return "redirect:/dashboard";
     }
 

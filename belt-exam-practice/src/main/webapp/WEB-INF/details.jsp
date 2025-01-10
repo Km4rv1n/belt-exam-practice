@@ -28,6 +28,7 @@
 
 <form:form method="post" action="/teams/add-player/${team.id}" modelAttribute="player">
     <input type="hidden" name="_method" value="put">
+    <form:hidden path="id" />
     <form:label path="name" class="name">Name:</form:label>
     <form:input path="name" class="name" />
     <form:errors path="name" class="text-danger" />
